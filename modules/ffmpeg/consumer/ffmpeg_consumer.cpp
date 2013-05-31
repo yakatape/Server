@@ -312,7 +312,7 @@ public:
 
 		oc_->oformat = output_format_.format;
 				
-		THROW_ON_ERROR2(av_set_parameters(oc_.get(), nullptr), "[ffmpeg_consumer]");
+		//THROW_ON_ERROR2(av_set_parameters(oc_.get(), nullptr), "[ffmpeg_consumer]");
 
 		// Add metadata timecode
 		bool bTimecodeOptionFound = false;
@@ -339,13 +339,16 @@ public:
 		if (!key_only)
 			audio_st_ = add_audio_stream(options);
 				
-		dump_format(oc_.get(), 0, filename_.c_str(), 1);
+		//dump_format(oc_.get(), 0, filename_.c_str(), 1);
+		av_dump_format(oc_.get(), 0, filename_.c_str(), 1);
 		 
 		// Open the output ffmpeg, if needed.
 		if (!(oc_->oformat->flags & AVFMT_NOFILE)) 
-			THROW_ON_ERROR2(avio_open(&oc_->pb, filename_.c_str(), URL_WRONLY), "[ffmpeg_consumer]");
-				
-		THROW_ON_ERROR2(av_write_header(oc_.get()), "[ffmpeg_consumer]");
+			//THROW_ON_ERROR2(avio_open(&oc_->pb, filename_.c_str(), URL_WRONLY), "[ffmpeg_consumer]");
+			THROW_ON_ERROR2(avio_open(&oc_->pb, filename_.c_str(), AVIO_FLAG_WRITE), "[ffmpeg_consumer]");				
+
+		//THROW_ON_ERROR2(av_write_header(oc_.get()), "[ffmpeg_consumer]");
+		THROW_ON_ERROR2(avformat_write_header(oc_.get(), nullptr), "[ffmpeg_consumer]");
 
 		if(options.size() > 0)
 		{
@@ -500,7 +503,7 @@ public:
 		c->codec_type		= AVMEDIA_TYPE_AUDIO;
 		c->sample_rate		= 48000;
 		c->channels			= channel_layout_.num_channels;
-		c->sample_fmt		= SAMPLE_FMT_S16;
+		c->sample_fmt		= AV_SAMPLE_FMT_S16; //SAMPLE_FMT_S16;
 
 		if(output_format_.vcodec == CODEC_ID_FLV1)		
 			c->sample_rate	= 44100;		

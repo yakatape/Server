@@ -51,7 +51,7 @@ extern "C"
 	#include <libavfilter/avcodec.h>
 	#include <libavfilter/avfiltergraph.h>
 	#include <libavfilter/buffersink.h>
-	#include <libavfilter/vsrc_buffer.h>
+//	#include <libavfilter/vsrc_buffer.h>
 }
 #if defined(_MSC_VER)
 #pragma warning (pop)
