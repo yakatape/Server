@@ -25,7 +25,13 @@
 
 #include "AMCPCommand.h"
 
-namespace caspar { namespace protocol {
+namespace caspar { 
+	
+namespace core {
+struct frame_producer;
+}
+
+namespace protocol {
 	
 std::wstring ListMedia();
 std::wstring ListTemplates();
@@ -74,6 +80,14 @@ class SwapCommand : public AMCPCommandBase<true, AddToQueue, 1>
 	bool DoExecute();
 };
 
+class RouteCommand : public AMCPCommandBase<true, AddToQueue, 1>
+{
+  std::wstring print() const { return L"RouteCommand";}
+  bool DoExecute();
+  public:
+	static safe_ptr<core::frame_producer> TryCreateProducer(AMCPCommand& command, std::wstring const& uri);
+};
+ 
 class LoadCommand : public AMCPCommandBase<true, AddToQueue, 1>
 {
 	std::wstring print() const { return L"LoadCommand";}

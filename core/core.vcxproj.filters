@@ -43,6 +43,9 @@
     <Filter Include="source\monitor">
       <UniqueIdentifier>{d8525088-072a-47d2-b6e1-ad662881f505}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\producer\layer">
+      <UniqueIdentifier>{f00a1dba-3c39-4123-a5c8-b974e09d889d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="producer\transition\transition_producer.h">
@@ -145,6 +148,13 @@
     <ClInclude Include="monitor\monitor.h">
       <Filter>source\monitor</Filter>
     </ClInclude>
+    <ClInclude Include="parameters\parameters.h" />
+    <ClInclude Include="producer\layer\layer_producer.h">
+      <Filter>source\producer\layer</Filter>
+    </ClInclude>
+    <ClInclude Include="consumer\write_frame_consumer.h">
+      <Filter>source\consumer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="producer\transition\transition_producer.cpp">
@@ -234,6 +244,10 @@
     </ClCompile>
     <ClCompile Include="mixer\audio\audio_util.cpp">
       <Filter>source\mixer\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="parameters\parameters.cpp" />
+    <ClCompile Include="producer\layer\layer_producer.cpp">
+      <Filter>source\producer\layer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
