@@ -522,7 +522,7 @@ safe_ptr<core::frame_producer> create_thumbnail_producer(
 	static const std::vector<std::wstring> invalid_exts = boost::assign::list_of
 			(L".png")(L".tga")(L".bmp")(L".jpg")(L".jpeg")(L".gif")(L".tiff")(L".tif")(L".jp2")(L".jpx")(L".j2k")(L".j2c")(L".swf")(L".ct")
 			(L".wav")(L".mp3"); // audio shall not have thumbnails
-	auto filename = probe_stem(env::media_folder() + L"\\" + params.at(0), invalid_exts);
+	auto filename = probe_stem(env::media_folder() + L"\\" + params.at_original(0), invalid_exts);
 
 	if(filename.empty())
 		return core::frame_producer::empty();
@@ -534,7 +534,7 @@ safe_ptr<core::frame_producer> create_thumbnail_producer(
 		
 	ffmpeg_params vid_params;
 
-	return create_producer_destroy_proxy(make_safe<ffmpeg_producer>(frame_factory, filename, FFMPEG_FILE, filter_str, loop, start, length, true, L"", vid_params));
+	return make_safe<ffmpeg_producer>(frame_factory, filename, FFMPEG_FILE, filter_str, loop, start, length, true, L"", vid_params);
 }
 
 }}
